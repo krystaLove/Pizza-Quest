@@ -7,7 +7,15 @@ using UnityEngine;
 
 public class ClickManager : MonoBehaviour
 {
+    public static ClickManager Instance { get; private set; }
     private PlayerController _playerController = null;
+
+    public bool canMove = true;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -24,6 +32,9 @@ public class ClickManager : MonoBehaviour
 
     private void Click()
     {
+        if (!canMove)
+            return;
+        
         Vector2 mouseClickedPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(mouseClickedPosition, Vector2.zero);
 
@@ -42,12 +53,16 @@ public class ClickManager : MonoBehaviour
         Debug.Log("Hit Collider: " + hit.transform.tag);
         _handleClickByTag(hit);
 
-        _playerController.GoTo(hit.transform.position);
-
     }
 
     private void _handleClickByTag(RaycastHit2D hit)
     {
-        _playerController.SetClickableObjectAsCallback(hit.transform.gameObject.GetComponent<ClickableObject>());
+        ClickableObject clickObj = hit.transform.gameObject.GetComponent<ClickableObject>();
+        if (clickObj != null)
+        {
+            _playerController.GoTo(clickObj.positionToStep.position);
+            _playerController.SetClickableObjectAsCallback(clickObj);
+        }
+       
     }
 }

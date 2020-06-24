@@ -6,7 +6,7 @@ using UnityEngine;
 public class CursorObject : MonoBehaviour
 {
 
-    [SerializeField] private CursorManager.CursorType cursorType;
+    [SerializeField] private CursorManager.CursorType cursorType = CursorManager.CursorType.Arrow;
     private void OnMouseEnter()
     {
         CursorManager.Instance.SetActiveCursorType(cursorType);   

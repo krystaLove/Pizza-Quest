@@ -3,13 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class ClickableObject : MonoBehaviour
 {
-    public bool isGoing = false;
-
-    public virtual void Action()
-    {
-        
-    }
-
+    public Transform positionToStep;
+    public virtual void Action() { }
 }

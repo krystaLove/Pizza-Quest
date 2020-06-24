@@ -12,8 +12,7 @@ public class ClickableDoor : ClickableObject
 
     public override void Action()
     {
-        GameManager gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-
-        StartCoroutine(gameManager.ChangeLevel(thisLevel, nextLevel, nextSpawn, nextBackGround));
+        StartCoroutine(GameManager.Instance.ChangeLevel(thisLevel, nextLevel, nextSpawn, nextBackGround));
     }
 }
+

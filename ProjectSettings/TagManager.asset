@@ -8,6 +8,7 @@ TagManager:
   - GameManager
   - LevelLoader
   - AreaToMove
+  - Person
   layers:
   - Default
   - TransparentFX

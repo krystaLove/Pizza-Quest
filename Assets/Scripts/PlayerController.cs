@@ -17,12 +17,20 @@ public class PlayerController : MonoBehaviour
 
         if (Vector2.Distance(transform.position, target) <= nearDistance)
         {
-            reachedTarget = true;
-            if(_goingClickableObject != null)
-                _goingClickableObject.Action();
+            OnPlayerReachedTarget();
         }
 
         transform.position = Vector2.MoveTowards(transform.position, target, Time.deltaTime * speed);
+    }
+    
+    public void OnPlayerReachedTarget()
+    {
+        reachedTarget = true;
+        if (_goingClickableObject != null)
+        {
+            _goingClickableObject.Action();
+            _goingClickableObject = null;
+        }
     }
 
     public void GoTo(Vector2 pos)
@@ -43,6 +51,8 @@ public class PlayerController : MonoBehaviour
         target = pos;
         _goingClickableObject = null;
     }
+
+    
     
 
 }
