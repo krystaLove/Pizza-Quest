@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class ClickManager : MonoBehaviour
 {
@@ -42,6 +43,16 @@ public class ClickManager : MonoBehaviour
         {
             Debug.Log("No colliders hit from mouse click");
             return;
+        }
+
+        if (!hit.collider.CompareTag("InventoryUI"))
+        {
+            GameManager.Instance.UiInventory.CloseInventory();
+        }
+
+        if (!hit.collider.CompareTag("Person"))
+        {
+            GameManager.Instance.SetSelectedItem(GameItem.ItemType.None);
         }
 
         if (hit.collider.CompareTag("AreaToMove"))

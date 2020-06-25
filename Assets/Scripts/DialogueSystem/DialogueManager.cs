@@ -74,11 +74,14 @@ public class DialogueManager : MonoBehaviour
     public void SetDialogue(Dialogue d)
     {
         _currentDialogue = d;
+        _index = 0;
     }
 
     IEnumerator EndDialog()
     {
         dialogBoxAnimator.SetBool("Start", false);
         yield return new WaitForSeconds(dialogBoxAnimator.GetCurrentAnimatorStateInfo(0).length);
+
+       _currentDialogue.OnDialogEndEvent.Invoke();
     }
 }

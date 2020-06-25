@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Events;
 
 [Serializable]
 public class Dialogue
@@ -13,7 +14,18 @@ public class Dialogue
         public string sentence;
         public AudioClip voiceOver;
     }
-
+    
     [SerializeField] public List<DialogueObject> dialogueObjects;
+    [SerializeField] public UnityEvent OnDialogEndEvent;
+}
+
+[Serializable]
+public class GetItemDialog
+{
+    public GameItem.ItemType neededItem;
+    public Dialogue dialogue;
+    public GameItem.ItemType givingItem;
+
+
 }
 

@@ -45,6 +45,7 @@ public class CursorManager : MonoBehaviour
     {
         SetActiveCursorAnimation(GetCursorAnimation(cursorType));
     }
+    
     private CursorAnimation GetCursorAnimation(CursorType cursorType)
     {
         foreach(CursorAnimation cursorAnimation in cursorAnimationList)
@@ -64,6 +65,8 @@ public class CursorManager : MonoBehaviour
         frameTimer = cursorAnimation.frameRate;
         frameCount = cursorAnimation.textureArray.Length;
     }
+    
+    
     [System.Serializable]
     public class CursorAnimation
     {

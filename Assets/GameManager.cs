@@ -12,10 +12,16 @@ public class GameManager : MonoBehaviour
     public GameObject mainCamera;
 
     public Animator levelFadeAnimator;
-    
+
+    public Inventory inventory;
+    public UI_Inventory UiInventory;
+
+    public GameItem.ItemType chosenItem = GameItem.ItemType.None;
     private void Awake()
     {
         Instance = this;
+        inventory = new Inventory();
+        UiInventory.SetInventory(inventory);
     }
 
     public void BlockMove()
@@ -44,6 +50,22 @@ public class GameManager : MonoBehaviour
         playerController.SetPosition(position);
         mainCamera.GetComponent<CameraFollow>().SetSpriteRenderer(nextBg);
         mainCamera.transform.position = new Vector3(spawnPoint.transform.position.x, spawnPoint.transform.position.y, mainCamera.transform.position.z);
+    }
+
+    public void SetSelectedItem(int index)
+    {
+        chosenItem = inventory.GetItemList()[index].itemType;
+        Debug.Log("New selected Item: " + chosenItem);
+    }
+    public void SetSelectedItem(GameItem.ItemType type)
+    {
+        if (type == GameItem.ItemType.None)
+        {
+            UiInventory.CloseInventory();
+        }
+        
+        chosenItem = type;
+        Debug.Log("New selected Item: " + chosenItem);
     }
 
 }
