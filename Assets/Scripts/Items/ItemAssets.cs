@@ -9,6 +9,7 @@ public class ItemAssets : MonoBehaviour
     [Header("Sprites for Items")]
     [SerializeField] public Sprite rockSprite;
     [SerializeField] public Sprite coinSprite;
+    [SerializeField] public Sprite beerSprite;
 
     private void Awake()
     {
@@ -21,6 +22,7 @@ public class ItemAssets : MonoBehaviour
         {
             case GameItem.ItemType.Rock: return rockSprite;
             case GameItem.ItemType.Coin: return coinSprite;
+            case GameItem.ItemType.Beer: return beerSprite;
             default: return rockSprite;
         }
     }

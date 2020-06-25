@@ -15,6 +15,12 @@ public class UI_Inventory : MonoBehaviour
     private void Start()
     {
         _inventory.OnItemAdded += Inventory_ItemAdded;
+        _inventory.OnItemRemoved += _refreshInventoryItems;
+    }
+
+    private void _refreshInventoryItems(object sender, EventArgs e)
+    {
+        _refreshInventoryItems();
     }
 
     public void SetInventory(Inventory inventory)

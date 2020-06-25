@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class DialogueManager : MonoBehaviour
     public GameObject continueButton;
     public TextMeshProUGUI textDisplay;
     public Animator dialogBoxAnimator;
+
+    public event EventHandler OnDialogStart;
+    public event EventHandler OnDialogFinish;
     
     public float typingSpeed;
 
@@ -25,6 +29,8 @@ public class DialogueManager : MonoBehaviour
 
     public IEnumerator StartDialogue()
     {
+        OnDialogStart?.Invoke(this, null);
+        
         GameManager.Instance.BlockMove();
         
         dialogBoxAnimator.SetBool("Start", true);
@@ -45,7 +51,15 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator Type()
     {
-        foreach (char letter in _currentDialogue.dialogueObjects[_index].sentence)
+        var dialogueObject = _currentDialogue.dialogueObjects[_index];
+        
+        if (dialogueObject.voiceOver != null)
+        {
+            DialogueVoiceOver.Instance.SetAudioClip(dialogueObject.voiceOver);
+            DialogueVoiceOver.Instance.Play();
+        }
+        
+        foreach (char letter in dialogueObject.sentence)
         {
             textDisplay.text += letter;
             yield return new WaitForSeconds(typingSpeed);
@@ -54,6 +68,7 @@ public class DialogueManager : MonoBehaviour
 
     public void NextSentence()
     {
+        DialogueVoiceOver.Instance.Stop();
         continueButton.SetActive(false);
         if (_index < _currentDialogue.dialogueObjects.Count - 1)
         {
@@ -83,5 +98,6 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForSeconds(dialogBoxAnimator.GetCurrentAnimatorStateInfo(0).length);
 
        _currentDialogue.OnDialogEndEvent.Invoke();
+       OnDialogFinish?.Invoke(this, null);
     }
 }

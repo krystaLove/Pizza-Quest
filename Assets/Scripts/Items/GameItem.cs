@@ -9,7 +9,8 @@ public class GameItem : MonoBehaviour
         Rock,
         Coin,
         Tomato,
-        CasinoCoin
+        CasinoCoin,
+        Beer
     }
 
     public ItemType itemType;

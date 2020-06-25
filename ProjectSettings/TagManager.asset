@@ -9,6 +9,9 @@ TagManager:
   - LevelLoader
   - AreaToMove
   - Person
+  - Item
+  - InventoryUI
+  - UI
   layers:
   - Default
   - TransparentFX

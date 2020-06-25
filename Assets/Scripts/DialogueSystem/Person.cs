@@ -38,7 +38,6 @@ public class Person : MonoBehaviour
                 nextDialog = Math.Min(nextDialog + 1, dialogues.Count - 1);
             }
             
-            
         }
         
         return diag;
@@ -46,6 +45,7 @@ public class Person : MonoBehaviour
 
     private void _unlockItem()
     {
+        GameManager.Instance.inventory.RemoveItem(GameManager.Instance.chosenItemIndex);
         GameManager.Instance.inventory.AddItem(new GameItem{itemType = itemDialog.givingItem});
     }
 }
