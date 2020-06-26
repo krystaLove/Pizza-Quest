@@ -8,4 +8,7 @@ public class LevelSettings : MonoBehaviour
     public Transform spawnPoint;
     public GameObject spriteBg;
     public AudioClip musicTheme;
+
+    [Range(5, 10)]
+    public float cameraSize = 5.5f;
 }

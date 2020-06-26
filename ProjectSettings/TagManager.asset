@@ -12,6 +12,7 @@ TagManager:
   - Item
   - InventoryUI
   - UI
+  - Interactable
   layers:
   - Default
   - TransparentFX

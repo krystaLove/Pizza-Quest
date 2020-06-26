@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator ChangeLevel(GameObject from, LevelSettings nextLevel)
     {
+        
          Music.Instance.Stop();
         
         if (levelFadeAnimator.enabled)
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
             levelFadeAnimator.SetBool("Start", true);
             yield return new WaitForSeconds(levelFadeAnimator.GetCurrentAnimatorStateInfo(0).length);
             levelFadeAnimator.SetBool("Start", false);
+            mainCamera.GetComponent<Camera>().orthographicSize = nextLevel.cameraSize;
         }
 
         if (nextLevel.musicTheme != null)

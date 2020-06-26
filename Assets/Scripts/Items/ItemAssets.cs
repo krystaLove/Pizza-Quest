@@ -10,6 +10,9 @@ public class ItemAssets : MonoBehaviour
     [SerializeField] public Sprite rockSprite;
     [SerializeField] public Sprite coinSprite;
     [SerializeField] public Sprite beerSprite;
+    [SerializeField] public Sprite stickSprite;
+    [SerializeField] public Sprite emptyBottle;
+    [SerializeField] public Sprite fullBottle;
 
     private void Awake()
     {
@@ -23,6 +26,9 @@ public class ItemAssets : MonoBehaviour
             case GameItem.ItemType.Rock: return rockSprite;
             case GameItem.ItemType.Coin: return coinSprite;
             case GameItem.ItemType.Beer: return beerSprite;
+            case GameItem.ItemType.Stick: return stickSprite;
+            case GameItem.ItemType.EmptyBottle: return emptyBottle;
+            case GameItem.ItemType.FullBottle: return fullBottle;
             default: return rockSprite;
         }
     }

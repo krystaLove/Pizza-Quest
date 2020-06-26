@@ -22,6 +22,11 @@ public class Music : MonoBehaviour
         DialogueManager.Instance.OnDialogFinish += (sender, args) => FadeToVolume(normalVolume);
     }
 
+    private void Update()
+    {
+        
+    }
+
 
     public void SetAudioClip(AudioClip clip)
     {
@@ -39,6 +44,7 @@ public class Music : MonoBehaviour
 
     public void FadeToVolume(float volume)
     {
+        StopAllCoroutines();
         if (audioSource.clip != null)
         {
             StartCoroutine(AudioController.FadeTo(audioSource, 0.5f, volume));

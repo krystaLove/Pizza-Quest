@@ -50,7 +50,7 @@ public class ClickManager : MonoBehaviour
             GameManager.Instance.UiInventory.CloseInventory();
         }
 
-        if (!hit.collider.CompareTag("Person"))
+        if (!hit.collider.CompareTag("Person") && !hit.collider.CompareTag("Interactable"))
         {
             GameManager.Instance.SetSelectedItem(GameItem.ItemType.None);
         }

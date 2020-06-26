@@ -11,7 +11,10 @@ public class ClickableDoor : ClickableObject
 
     private void Start()
     {
-        this.positionToStep = gameObject.transform;
+        if (positionToStep == null)
+        {
+            positionToStep = gameObject.transform;
+        }
     }
 
     public override void Action()

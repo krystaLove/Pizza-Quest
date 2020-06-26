@@ -13,6 +13,8 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI textDisplay;
     public Animator dialogBoxAnimator;
 
+    public bool isDialogPlaying;
+
     public event EventHandler OnDialogStart;
     public event EventHandler OnDialogFinish;
     
@@ -29,6 +31,7 @@ public class DialogueManager : MonoBehaviour
 
     public IEnumerator StartDialogue()
     {
+        isDialogPlaying = true;
         OnDialogStart?.Invoke(this, null);
         
         GameManager.Instance.BlockMove();
@@ -99,5 +102,6 @@ public class DialogueManager : MonoBehaviour
 
        _currentDialogue.OnDialogEndEvent.Invoke();
        OnDialogFinish?.Invoke(this, null);
+       isDialogPlaying = false;
     }
 }

@@ -20,7 +20,8 @@ public class CursorManager : MonoBehaviour
         Grab,
         Talk,
         Move,
-        Arrive
+        Arrive,
+        Interact
     }
     private void Awake()
     {

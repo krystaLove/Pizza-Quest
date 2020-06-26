@@ -10,7 +10,10 @@ public class GameItem : MonoBehaviour
         Coin,
         Tomato,
         CasinoCoin,
-        Beer
+        Beer,
+        Stick,
+        EmptyBottle,
+        FullBottle
     }
 
     public ItemType itemType;
