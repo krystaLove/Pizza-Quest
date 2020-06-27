@@ -39,12 +39,14 @@ public class ClickManager : MonoBehaviour
         if (IsPointerOverUIObject())
         {
             Debug.Log("UI");
+            GameManager.Instance.ResetSelectedItem(false);
             return;
         }
             
 
         if (hit.collider == null)
         {
+            GameManager.Instance.ResetSelectedItem(false);
             Debug.Log("No colliders hit from mouse click");
             return;
         }

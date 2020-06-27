@@ -18,7 +18,8 @@ public class GameManager : MonoBehaviour
     [Header("Level Change")]
     public Animator levelFadeAnimator;
 
-    [Header("Cursor Change")] public GameObject followCursorItem;
+    [Header("Cursor Change")]
+    public GameObject followCursorItem;
 
     [Header("Inventory")]
     public Inventory inventory;
@@ -48,10 +49,21 @@ public class GameManager : MonoBehaviour
         DialogueManager.Instance.OnDialogStart += (sender, args) => followCursorItem.SetActive(false);
     }
 
+    public void StartGame()
+    {
+        if (startLevel.musicTheme != null)
+        {
+            Music.Instance.Stop();
+            Music.Instance.SetAudioClip(startLevel.musicTheme);
+        }
+    }
+
     public IEnumerator ChangeLevel(GameObject from, LevelSettings nextLevel)
     {
         
-         Music.Instance.Stop();
+        Music.Instance.Stop();
+        DialogueVoiceOver.Instance.Stop();
+        BlockMove();
         
         if (levelFadeAnimator.enabled)
         {
@@ -60,6 +72,7 @@ public class GameManager : MonoBehaviour
             levelFadeAnimator.SetBool("Start", false);
             playerController.gameObject.transform.localScale = new Vector3(nextLevel.characterSize, nextLevel.characterSize);
             mainCamera.GetComponent<Camera>().orthographicSize = nextLevel.cameraSize;
+            AllowMove();
         }
 
         if (nextLevel.musicTheme != null)
@@ -93,13 +106,18 @@ public class GameManager : MonoBehaviour
         Debug.Log("New selected Item: " + chosenItem);
     }
 
-    public void ResetSelectedItem()
+    public void ResetSelectedItem(bool withUi = true)
     {
         followCursorItem.SetActive(false);
         Debug.Log("Reset Selected Item");
         chosenItemIndex = -1;
         chosenItem = GameItem.ItemType.None;
-        UiInventory.CloseInventory();
+        
+        if (withUi)
+        {
+            UiInventory.CloseInventory();
+        }
     }
+
 
 }

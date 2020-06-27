@@ -11,7 +11,11 @@ public class GameItem : MonoBehaviour
         Beer,
         Stick,
         EmptyBottle,
-        FullBottle
+        FullBottle,
+        Flour,
+        Cheese,
+        Bun,
+        Magnet
     }
 
     public ItemType itemType;

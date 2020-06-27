@@ -7,5 +7,9 @@ using UnityEngine;
 public class ClickableObject : MonoBehaviour
 {
     public Transform positionToStep;
-    public virtual void Action() { }
+
+    public virtual void Action()
+    {
+        GameManager.Instance.ResetSelectedItem(false);
+    }
 }

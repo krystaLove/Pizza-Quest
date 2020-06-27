@@ -11,7 +11,9 @@ public class Person : MonoBehaviour
     [SerializeField] public List<Dialogue> dialogues;
     [SerializeField] public GetItemDialog itemDialog;
     [SerializeField] public Dialogue dialogueAfterGettingItem;
-    private bool _gotItem = false;
+    public bool gotItem = false;
+
+    [SerializeField] public Reaction afterGettingItemReaction;
 
     private void Start()
     {
@@ -21,14 +23,14 @@ public class Person : MonoBehaviour
     public Dialogue GetNextDialog()
     {
         Dialogue diag;
-        if (!_gotItem && GameManager.Instance.chosenItem == itemDialog.neededItem)
+        if (!gotItem && GameManager.Instance.chosenItem == itemDialog.neededItem)
         {
-            _gotItem = true;
+            gotItem = true;
             diag = itemDialog.dialogue;
         }
         else
         {
-            if (_gotItem)
+            if (gotItem)
             {
                 diag = dialogueAfterGettingItem;
             }
