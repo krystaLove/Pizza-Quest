@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿
 using System.Collections.Generic;
-using TMPro;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using UnityEngine.Video;
+using UnityEngine.EventSystems;
 
 public class ClickManager : MonoBehaviour
 {
@@ -39,6 +36,13 @@ public class ClickManager : MonoBehaviour
         Vector2 mouseClickedPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(mouseClickedPosition, Vector2.zero);
 
+        if (IsPointerOverUIObject())
+        {
+            Debug.Log("UI");
+            return;
+        }
+            
+
         if (hit.collider == null)
         {
             Debug.Log("No colliders hit from mouse click");
@@ -58,6 +62,7 @@ public class ClickManager : MonoBehaviour
         if (hit.collider.CompareTag("AreaToMove"))
         {
             _playerController.GoTo(mouseClickedPosition);
+            _playerController.SetClickableObjectAsCallback(null);
             return;
         }
         
@@ -75,5 +80,14 @@ public class ClickManager : MonoBehaviour
             _playerController.SetClickableObjectAsCallback(clickObj);
         }
        
+    }
+
+    private bool IsPointerOverUIObject()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
     }
 }

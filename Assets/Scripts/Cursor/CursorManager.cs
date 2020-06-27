@@ -12,6 +12,8 @@ public class CursorManager : MonoBehaviour
     private int currentFrame;
     private float frameTimer;
     private int frameCount;
+
+    public bool alwaysArrow = true;
     
 
     public enum CursorType
@@ -29,6 +31,8 @@ public class CursorManager : MonoBehaviour
     }
     private void Start()
     {
+        DialogueManager.Instance.OnDialogStart += (sender, args) => BlockCursor();
+        DialogueManager.Instance.OnDialogFinish += (sender, args) => UnlockCursor();
         SetActiveCursorType(CursorType.Arrow);
     }
     private void Update()
@@ -44,6 +48,8 @@ public class CursorManager : MonoBehaviour
 
     public void SetActiveCursorType(CursorType cursorType)
     {
+        if (alwaysArrow) return;
+        
         SetActiveCursorAnimation(GetCursorAnimation(cursorType));
     }
     
@@ -65,6 +71,17 @@ public class CursorManager : MonoBehaviour
         currentFrame = 0;
         frameTimer = cursorAnimation.frameRate;
         frameCount = cursorAnimation.textureArray.Length;
+    }
+
+    public void BlockCursor()
+    {
+        alwaysArrow = true;
+        SetActiveCursorAnimation(GetCursorAnimation(CursorType.Arrow));
+    }
+
+    public void UnlockCursor()
+    {
+        alwaysArrow = false;
     }
     
     

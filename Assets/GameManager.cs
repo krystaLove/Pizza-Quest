@@ -1,6 +1,6 @@
-﻿using System;
+﻿
 using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public PlayerController playerController;
     public GameObject mainCamera;
+
+    [Header("Level")] public LevelSettings startLevel;
     
     [Header("Level Change")]
     public Animator levelFadeAnimator;
@@ -48,6 +50,7 @@ public class GameManager : MonoBehaviour
             levelFadeAnimator.SetBool("Start", true);
             yield return new WaitForSeconds(levelFadeAnimator.GetCurrentAnimatorStateInfo(0).length);
             levelFadeAnimator.SetBool("Start", false);
+            playerController.gameObject.transform.localScale = new Vector3(nextLevel.characterSize, nextLevel.characterSize);
             mainCamera.GetComponent<Camera>().orthographicSize = nextLevel.cameraSize;
         }
 

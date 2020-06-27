@@ -12,10 +12,15 @@ public class UI_Inventory : MonoBehaviour
 
     public bool isInventoryOpen = false;
 
+    public GameObject inventoryButton;
+
     private void Start()
     {
         _inventory.OnItemAdded += Inventory_ItemAdded;
         _inventory.OnItemRemoved += _refreshInventoryItems;
+
+        DialogueManager.Instance.OnDialogStart += (e, o) => _triggerInventoryButton();
+        DialogueManager.Instance.OnDialogFinish += (e, o) => _triggerInventoryButton();
     }
 
     private void _refreshInventoryItems(object sender, EventArgs e)
@@ -29,7 +34,7 @@ public class UI_Inventory : MonoBehaviour
         _refreshInventoryItems();
     }
 
-    public void TriggerInventory()
+    public void TriggerInventoryButton()
     {
         if (isInventoryOpen)
         {
@@ -39,6 +44,11 @@ public class UI_Inventory : MonoBehaviour
         {
             ShowInventory();
         }
+    }
+
+    public void _triggerInventoryButton()
+    {
+        inventoryButton.SetActive(!inventoryButton.activeSelf);
     }
 
     public void ShowInventory()
