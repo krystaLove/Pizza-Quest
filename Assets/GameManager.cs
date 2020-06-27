@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections;
 
 using UnityEngine;
@@ -8,14 +9,16 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [Header("Player")]
-    public GameObject player;
     public PlayerController playerController;
     public GameObject mainCamera;
 
-    [Header("Level")] public LevelSettings startLevel;
+    [Header("Level")]
+    public LevelSettings startLevel;
     
     [Header("Level Change")]
     public Animator levelFadeAnimator;
+
+    [Header("Cursor Change")] public GameObject followCursorItem;
 
     [Header("Inventory")]
     public Inventory inventory;
@@ -38,6 +41,11 @@ public class GameManager : MonoBehaviour
     public void AllowMove()
     {
         ClickManager.Instance.canMove = true;
+    }
+
+    public void Start()
+    {
+        DialogueManager.Instance.OnDialogStart += (sender, args) => followCursorItem.SetActive(false);
     }
 
     public IEnumerator ChangeLevel(GameObject from, LevelSettings nextLevel)
@@ -72,20 +80,26 @@ public class GameManager : MonoBehaviour
 
     public void SetSelectedItem(int index)
     {
+        followCursorItem.SetActive(true);
+        followCursorItem.GetComponent<SpriteRenderer>().sprite =
+            ItemAssets.Instance.GetSpriteByItemType(inventory.GetItemList()[index].itemType);
         chosenItem = inventory.GetItemList()[index].itemType;
         chosenItemIndex = index;
         Debug.Log("New selected Item: " + chosenItem);
     }
     public void SetSelectedItem(GameItem.ItemType type)
     {
-        if (type == GameItem.ItemType.None)
-        {
-            chosenItemIndex = -1;
-            UiInventory.CloseInventory();
-        }
-        
         chosenItem = type;
         Debug.Log("New selected Item: " + chosenItem);
+    }
+
+    public void ResetSelectedItem()
+    {
+        followCursorItem.SetActive(false);
+        Debug.Log("Reset Selected Item");
+        chosenItemIndex = -1;
+        chosenItem = GameItem.ItemType.None;
+        UiInventory.CloseInventory();
     }
 
 }

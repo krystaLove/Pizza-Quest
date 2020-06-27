@@ -56,7 +56,7 @@ public class ClickManager : MonoBehaviour
 
         if (!hit.collider.CompareTag("Person") && !hit.collider.CompareTag("Interactable"))
         {
-            GameManager.Instance.SetSelectedItem(GameItem.ItemType.None);
+            GameManager.Instance.ResetSelectedItem();
         }
 
         if (hit.collider.CompareTag("AreaToMove"))
