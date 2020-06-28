@@ -20,6 +20,7 @@ public class UnlockInteractableProgress : MonoBehaviour
 
    [Header("02_outership")] 
    public bool isVisitedByHomeless = false;
+   public GameObject solaraDialogTrigger;
 
    [Header("03_innership")] 
    public bool isTalkedWithHomeless = false;
@@ -41,6 +42,12 @@ public class UnlockInteractableProgress : MonoBehaviour
    public void SetTlkedWithHomelessTrigger()
    {
       isTalkedWithHomeless = true;
+   }
+
+   public void SetSlivSolari()
+   {
+      isVisitedByHomeless = true;
+      solaraDialogTrigger.SetActive(true);
    }
 
 }

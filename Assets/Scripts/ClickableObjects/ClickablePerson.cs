@@ -16,13 +16,14 @@ public class ClickablePerson : ClickableObject
             return;
         }
         
-        if (person.gotItem)
+        if (person.IsNoNeedToDialog())
         {
             person.afterGettingItemReaction.Do();
             return;
         }
 
         DialogueManager.Instance.SetDialogue(person.GetNextDialog());
+        DialogueManager.Instance.SetCameraPosition(person.cameraPosition, person.camSize);
         StartCoroutine(DialogueManager.Instance.StartDialogue());
     }
 }

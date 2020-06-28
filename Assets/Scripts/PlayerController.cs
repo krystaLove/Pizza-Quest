@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     private ClickableObject _goingClickableObject = null;
     private SpriteRenderer _spriteRenderer;
+    private Rigidbody2D _rb;
 
     public bool isMoving;
     public bool isFlipped;
@@ -26,11 +27,12 @@ public class PlayerController : MonoBehaviour
             OnPlayerReachedTarget();
         }
 
-        Move();
+        //Move();
     }
 
     private void Start()
     {
+        _rb = gameObject.GetComponent<Rigidbody2D>();
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         target = gameObject.transform.position;
     }
@@ -47,9 +49,15 @@ public class PlayerController : MonoBehaviour
                 _spriteRenderer.flipX = false;
         }
 
-        transform.position = Vector2.MoveTowards(transform.position, target, Time.deltaTime * speed);
+        Vector2 position = Vector2.MoveTowards(transform.position, target, Time.deltaTime * speed);
+        _rb.MovePosition(position);
     }
-    
+
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
     public void OnPlayerReachedTarget()
     {
         //Debug.Log("OnPlayerReached");
@@ -66,9 +74,12 @@ public class PlayerController : MonoBehaviour
 
     public void GoTo(Vector2 pos)
     {
-        isMoving = true;
-        heroAnimator.SetBool("Moving", isMoving);
-        
+        if (Vector2.Distance(pos, transform.position) > nearDistance)
+        {
+            isMoving = true;
+            heroAnimator.SetBool("Moving", isMoving);
+        }
+
         reachedTarget = false;
         target = pos;
     }
@@ -89,7 +100,14 @@ public class PlayerController : MonoBehaviour
         _goingClickableObject = null;
     }
 
-    
-    
-
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.collider.CompareTag("Obstacle"))
+        {
+            Debug.Log("Obstacle Collision!");
+            GoTo(transform.position);
+            SetClickableObjectAsCallback(null);
+        }
+        
+    }
 }

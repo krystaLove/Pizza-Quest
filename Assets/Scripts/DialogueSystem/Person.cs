@@ -9,11 +9,18 @@ public class Person : MonoBehaviour
 {
     [SerializeField] public int nextDialog;
     [SerializeField] public List<Dialogue> dialogues;
+    [SerializeField] public bool isNeedItem;
     [SerializeField] public GetItemDialog itemDialog;
     [SerializeField] public Dialogue dialogueAfterGettingItem;
     public bool gotItem = false;
 
     [SerializeField] public Reaction afterGettingItemReaction;
+    
+    [Header("Camera")]
+    public Transform cameraPosition;
+    public float camSize;
+
+    private bool _isLastDialogPlayed = false;
 
     private void Start()
     {
@@ -23,7 +30,7 @@ public class Person : MonoBehaviour
     public Dialogue GetNextDialog()
     {
         Dialogue diag;
-        if (!gotItem && GameManager.Instance.chosenItem == itemDialog.neededItem)
+        if (!gotItem && GameManager.Instance.chosenItem == itemDialog.neededItem && isNeedItem)
         {
             gotItem = true;
             diag = itemDialog.dialogue;
@@ -37,6 +44,8 @@ public class Person : MonoBehaviour
             else
             {
                 diag = dialogues[nextDialog];
+                if (nextDialog + 1 >= dialogues.Count)
+                    _isLastDialogPlayed = true;
                 nextDialog = Math.Min(nextDialog + 1, dialogues.Count - 1);
             }
             
@@ -45,9 +54,19 @@ public class Person : MonoBehaviour
         return diag;
     }
 
+    public bool IsNoNeedToDialog()
+    {
+        return (_isLastDialogPlayed && !isNeedItem) || gotItem;
+    }
+
     private void _unlockItem()
     {
         GameManager.Instance.inventory.RemoveItem(GameManager.Instance.chosenItemIndex);
         GameManager.Instance.inventory.AddItem(new GameItem{itemType = itemDialog.givingItem});
+    }
+
+    public void GoToPositionToSpeak()
+    {
+        GameManager.Instance.playerController.GoTo(gameObject.GetComponent<ClickablePerson>().positionToStep.position);
     }
 }

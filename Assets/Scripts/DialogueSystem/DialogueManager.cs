@@ -13,6 +13,10 @@ public class DialogueManager : MonoBehaviour
 
     public bool isDialogPlaying;
 
+    [Header("Camera")]
+    public Transform cameraPosition;
+    public float cameraSize;
+
     public event EventHandler OnDialogStart;
     public event EventHandler OnDialogFinish;
     
@@ -25,6 +29,11 @@ public class DialogueManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+
+    public void StartDialogueWithInnerCoroutine()
+    {
+        StartCoroutine(StartDialogue());
     }
 
     public IEnumerator StartDialogue()
@@ -53,7 +62,8 @@ public class DialogueManager : MonoBehaviour
     IEnumerator Type()
     {
         var dialogueObject = _currentDialogue.dialogueObjects[_index];
-        
+        dialogueObject.OnPhraseStarted?.Invoke();
+
         if (dialogueObject.voiceOver != null)
         {
             DialogueVoiceOver.Instance.SetAudioClip(dialogueObject.voiceOver);
@@ -101,5 +111,11 @@ public class DialogueManager : MonoBehaviour
        _currentDialogue.OnDialogEndEvent.Invoke();
        OnDialogFinish?.Invoke(this, null);
        isDialogPlaying = false;
+    }
+
+    public void SetCameraPosition(Transform target, float size)
+    {
+        cameraPosition = target;
+        cameraSize = size;
     }
 }

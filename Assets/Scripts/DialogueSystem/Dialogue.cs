@@ -11,6 +11,7 @@ public class Dialogue
     {
         public string sentence;
         public AudioClip voiceOver;
+        public UnityEvent OnPhraseStarted;
     }
     
     [SerializeField] public List<DialogueObject> dialogueObjects;

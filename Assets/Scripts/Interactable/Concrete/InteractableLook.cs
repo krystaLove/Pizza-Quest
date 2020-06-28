@@ -12,7 +12,7 @@ public class InteractableLook : InteractableObject
         }
         else
         {
-            return commonReaction;
+            return ReactionAssets.Instance.notMatchItemReaction;
         }
     }
 }
