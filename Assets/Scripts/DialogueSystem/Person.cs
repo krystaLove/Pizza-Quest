@@ -27,6 +27,26 @@ public class Person : MonoBehaviour
         itemDialog.dialogue.OnDialogEndEvent.AddListener(_unlockItem);
     }
 
+    public virtual void Action()
+    {
+        if (itemDialog.neededItem != GameManager.Instance.chosenItem && GameManager.Instance.chosenItem != GameItem.ItemType.None)
+        {
+            GameManager.Instance.ResetSelectedItem(false);
+            ReactionAssets.Instance.GetNotMatchItemReaction().Do();
+            return;
+        }
+        
+        if (IsNoNeedToDialog())
+        {
+            afterGettingItemReaction.Do();
+            return;
+        }
+
+        DialogueManager.Instance.SetDialogue(GetNextDialog());
+        DialogueManager.Instance.SetCameraPosition(cameraPosition, camSize);
+        StartCoroutine(DialogueManager.Instance.StartDialogue());
+    }
+
     public Dialogue GetNextDialog()
     {
         Dialogue diag;
@@ -68,5 +88,12 @@ public class Person : MonoBehaviour
     public void GoToPositionToSpeak()
     {
         GameManager.Instance.playerController.GoTo(gameObject.GetComponent<ClickablePerson>().positionToStep.position);
+    }
+
+    public void StartFirstDialogue()
+    {
+        DialogueManager.Instance.SetDialogue(dialogues[0]);
+        DialogueManager.Instance.SetCameraPosition(cameraPosition, camSize);
+        StartCoroutine(DialogueManager.Instance.StartDialogue());
     }
 }

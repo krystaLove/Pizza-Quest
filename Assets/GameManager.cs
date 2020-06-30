@@ -119,5 +119,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void HideScreen()
+    {
+        levelFadeAnimator.SetBool("Start", true);
+    }
+
+    public void ShowScreen()
+    {
+        levelFadeAnimator.SetBool("Start", false);
+    }
+
 
 }

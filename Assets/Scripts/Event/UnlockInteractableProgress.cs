@@ -35,9 +35,9 @@ public class UnlockInteractableProgress : MonoBehaviour
    public bool tomato;
    public bool flour;
 
-   public void checkPizzaIngredients()
+   public bool CheckPizzaIngredients()
    {
-      isPizzaGot = cheese && tomato && flour;
+      return isPizzaGot = cheese && tomato && flour;
    }
 
    public void SetTlkedWithHomelessTrigger()
@@ -52,4 +52,8 @@ public class UnlockInteractableProgress : MonoBehaviour
       shipAfterVisiting.SetActive(true);
    }
 
+   public void VozvrashenieSolari()
+   {
+      shipAfterVisiting.SetActive(false);
+   }
 }

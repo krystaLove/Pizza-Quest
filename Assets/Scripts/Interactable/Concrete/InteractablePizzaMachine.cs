@@ -7,7 +7,7 @@ public class InteractablePizzaMachine : InteractableObject
     public override Reaction GetNextReaction()
     {
         UnlockInteractableProgress unlockedProgress = UnlockInteractableProgress.Instance;
-        if (unlockedProgress.isPizzaGot)
+        if (unlockedProgress.CheckPizzaIngredients())
         {
             return progress[1];
         }

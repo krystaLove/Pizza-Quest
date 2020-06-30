@@ -16,6 +16,11 @@ public class ItemAssets : MonoBehaviour
     [SerializeField] public Sprite cheeseSprite;
     [SerializeField] public Sprite bunSprite;
     [SerializeField] public Sprite flourSprite;
+    [SerializeField] public Sprite pieSprite;
+    [SerializeField] public Sprite gasSprite;
+    [SerializeField] public Sprite pizzaSprite;
+    [SerializeField] public Sprite salamiSprite;
+    
 
     private void Awake()
     {
@@ -34,7 +39,11 @@ public class ItemAssets : MonoBehaviour
             case GameItem.ItemType.FullBottle: return fullBottle;
             case GameItem.ItemType.Cheese: return cheeseSprite;
             case GameItem.ItemType.Bun: return bunSprite;
+            case GameItem.ItemType.Gas: return gasSprite;
+            case GameItem.ItemType.Pie: return pieSprite;
+            case GameItem.ItemType.Pizza: return pizzaSprite;
             case GameItem.ItemType.Flour: return flourSprite;
+            case GameItem.ItemType.Salami: return salamiSprite;
             default: return rockSprite;
         }
     }

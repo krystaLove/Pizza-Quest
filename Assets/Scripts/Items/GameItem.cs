@@ -15,7 +15,11 @@ public class GameItem : MonoBehaviour
         Flour,
         Cheese,
         Bun,
-        Magnet
+        Magnet,
+        Pie,
+        Gas,
+        Salami,
+        Pizza
     }
 
     public ItemType itemType;
