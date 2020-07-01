@@ -18,6 +18,7 @@ public class Inventory
 
    public void AddItem(GameItem item)
    {
+      CheckUsefulItems(item.itemType);
       _itemList.Add(item);
       OnItemAdded?.Invoke(this, item);
 
@@ -28,7 +29,38 @@ public class Inventory
    {
       GameItem item = new GameItem();
       item.itemType = type;
+
+      CheckUsefulItems(type);
+      
       AddItem(item);
+   }
+
+   public void CheckUsefulItems(GameItem.ItemType item)
+   {
+      if (item == GameItem.ItemType.Salami)
+      {
+         UnlockInteractableProgress.Instance.salami = true;
+      }
+      if (item == GameItem.ItemType.Flour)
+      {
+         UnlockInteractableProgress.Instance.flour = true;
+      }
+      if (item == GameItem.ItemType.Cheese)
+      {
+         UnlockInteractableProgress.Instance.cheese = true;
+      }
+      if (item == GameItem.ItemType.Tomato)
+      {
+         UnlockInteractableProgress.Instance.tomato = true;
+      }
+      if (item == GameItem.ItemType.FullBottle)
+      {
+         UnlockInteractableProgress.Instance.water = true;
+      }
+      if (item == GameItem.ItemType.Pizza)
+      {
+         UnlockInteractableProgress.Instance.isPizzaGot = true;
+      }
    }
 
    public void RemoveItem(int index)

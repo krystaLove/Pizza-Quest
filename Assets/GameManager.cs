@@ -49,6 +49,11 @@ public class GameManager : MonoBehaviour
         DialogueManager.Instance.OnDialogStart += (sender, args) => followCursorItem.SetActive(false);
     }
 
+    public void ChangeLevelWithInnerCoroutine(GameObject from, LevelSettings nextLevel)
+    {
+        StartCoroutine(ChangeLevel(from, nextLevel));
+    }
+
     public void StartGame()
     {
         if (startLevel.musicTheme != null)

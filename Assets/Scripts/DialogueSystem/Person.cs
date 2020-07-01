@@ -83,7 +83,7 @@ public class Person : MonoBehaviour
         return (_isLastDialogPlayed && !isNeedItem) || gotItem;
         
         //return _isLastDialogPlayed && !restartDialogBeforeItem && !isNeedItem || gotItem;
-        return _isLastDialogPlayed && !restartDialogBeforeItem || gotItem;
+        //return _isLastDialogPlayed && !restartDialogBeforeItem || gotItem;
     }
 
     private void _unlockItem()

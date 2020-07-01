@@ -57,7 +57,7 @@ public class ClickManager : MonoBehaviour
             GameManager.Instance.UiInventory.CloseInventory();
         }
 
-        if (!hit.collider.CompareTag("Person") && !hit.collider.CompareTag("Interactable"))
+        if (!hit.collider.CompareTag("Person") && !hit.collider.CompareTag("Interactable") && !hit.collider.CompareTag("AreaToMove"))
         {
             GameManager.Instance.ResetSelectedItem();
         }

@@ -20,4 +20,9 @@ public class InteractableSlot : InteractableObject
         
         return progress[0];
     }
+
+    public void GiveCoin()
+    {
+        GameManager.Instance.inventory.AddItem(GameItem.ItemType.Coin);
+    }
 }

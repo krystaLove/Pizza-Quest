@@ -15,8 +15,7 @@ public class PauseMenu : MonoBehaviour
     
     void Start()
     {
-        pauseMenu.SetActive(false);
-        float volume;
+       /* float volume;
         {
             bool res = AudioManager.instance.mixer.GetFloat("MasterVolume", out volume);
             if (res)
@@ -31,7 +30,9 @@ public class PauseMenu : MonoBehaviour
             bool res = AudioManager.instance.mixer.GetFloat("MusicVolume", out volume);
             if(res)
                 musicSlider.SetValueWithoutNotify(volume);
-        }
+        }*/
+        pauseMenu.SetActive(false);
+        
         //AudioManager.instance.PlayMusic("Heroic");
     }
 

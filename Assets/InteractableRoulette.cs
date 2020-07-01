@@ -12,6 +12,10 @@ public class InteractableRoulette : InteractableObject
         {
             return progress[1];
         }
+        if (item == GameItem.ItemType.Coin)
+        {
+            return progress[2];
+        }
 
         if (item != GameItem.ItemType.None)
         {
