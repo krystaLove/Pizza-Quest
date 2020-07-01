@@ -39,11 +39,12 @@ public class ClickManager : MonoBehaviour
         if (IsPointerOverUIObject())
         {
             Debug.Log("UI");
-            GameManager.Instance.ResetSelectedItem(false);
+            GameManager.Instance.DisableSelectedItemFollowingCursor();
+            //GameManager.Instance.ResetSelectedItem(false);
             return;
         }
             
-
+        GameManager.Instance.DisableSelectedItemFollowingCursor();
         if (hit.collider == null)
         {
             GameManager.Instance.ResetSelectedItem(false);

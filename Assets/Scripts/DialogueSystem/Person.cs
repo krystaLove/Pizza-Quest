@@ -7,11 +7,14 @@ using UnityEngine;
 [Serializable]
 public class Person : MonoBehaviour
 {
+    [SerializeField] public bool faceRight = true;
     [SerializeField] public int nextDialog;
     [SerializeField] public List<Dialogue> dialogues;
     [SerializeField] public bool isNeedItem;
+    [SerializeField] public bool restartDialogBeforeItem = false;
     [SerializeField] public GetItemDialog itemDialog;
     [SerializeField] public Dialogue dialogueAfterGettingItem;
+
     public bool gotItem = false;
 
     [SerializeField] public Reaction afterGettingItemReaction;
@@ -29,6 +32,7 @@ public class Person : MonoBehaviour
 
     public virtual void Action()
     {
+        GameManager.Instance.playerController.Flip(faceRight);
         if (itemDialog.neededItem != GameManager.Instance.chosenItem && GameManager.Instance.chosenItem != GameItem.ItemType.None)
         {
             GameManager.Instance.ResetSelectedItem(false);
@@ -77,12 +81,19 @@ public class Person : MonoBehaviour
     public bool IsNoNeedToDialog()
     {
         return (_isLastDialogPlayed && !isNeedItem) || gotItem;
+        
+        //return _isLastDialogPlayed && !restartDialogBeforeItem && !isNeedItem || gotItem;
+        return _isLastDialogPlayed && !restartDialogBeforeItem || gotItem;
     }
 
     private void _unlockItem()
     {
         GameManager.Instance.inventory.RemoveItem(GameManager.Instance.chosenItemIndex);
-        GameManager.Instance.inventory.AddItem(new GameItem{itemType = itemDialog.givingItem});
+        foreach (var item in itemDialog.givingItem)
+        {
+            GameManager.Instance.inventory.AddItem(new GameItem{itemType = item});
+        }
+        
     }
 
     public void GoToPositionToSpeak()

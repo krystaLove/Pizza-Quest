@@ -66,8 +66,9 @@ public class DialogueManager : MonoBehaviour
 
         if (dialogueObject.voiceOver != null)
         {
-            DialogueVoiceOver.Instance.SetAudioClip(dialogueObject.voiceOver);
-            DialogueVoiceOver.Instance.Play();
+            AudioManager.instance.InstancePlayDialogueVoiceover(dialogueObject.voiceOver);
+            //DialogueVoiceOver.Instance.SetAudioClip(dialogueObject.voiceOver);
+            //DialogueVoiceOver.Instance.Play();
         }
         
         foreach (char letter in dialogueObject.sentence)
@@ -79,7 +80,8 @@ public class DialogueManager : MonoBehaviour
 
     public void NextSentence()
     {
-        DialogueVoiceOver.Instance.Stop();
+        AudioManager.instance.InstanceStopDialogueVoiceover();
+        //DialogueVoiceOver.Instance.Stop();
         continueButton.SetActive(false);
         if (_index < _currentDialogue.dialogueObjects.Count - 1)
         {

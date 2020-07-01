@@ -16,12 +16,7 @@ public class DialogueVoiceOver : MonoBehaviour
 
     public void SetAudioClip(AudioClip clip)
     {
-        audioSource.clip = clip;
-    }
-
-    private void Update()
-    {
-        
+        AudioManager.instance.InstancePlayDialogueVoiceover(clip);
     }
 
     public void Play()

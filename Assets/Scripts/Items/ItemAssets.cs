@@ -20,6 +20,11 @@ public class ItemAssets : MonoBehaviour
     [SerializeField] public Sprite gasSprite;
     [SerializeField] public Sprite pizzaSprite;
     [SerializeField] public Sprite salamiSprite;
+    [SerializeField] public Sprite casinoCoinSprite;
+    [SerializeField] public Sprite tomatoSprite;
+    [SerializeField] public Sprite magnetAndCoinSprite;
+    [SerializeField] public Sprite magnetSprite;
+    
     
 
     private void Awake()
@@ -44,6 +49,10 @@ public class ItemAssets : MonoBehaviour
             case GameItem.ItemType.Pizza: return pizzaSprite;
             case GameItem.ItemType.Flour: return flourSprite;
             case GameItem.ItemType.Salami: return salamiSprite;
+            case GameItem.ItemType.CasinoCoin: return casinoCoinSprite;
+            case GameItem.ItemType.Tomato: return tomatoSprite;
+            case GameItem.ItemType.Magnet: return magnetSprite;
+            case GameItem.ItemType.MagnetAndCoin: return magnetAndCoinSprite;
             default: return rockSprite;
         }
     }

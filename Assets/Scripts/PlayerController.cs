@@ -39,13 +39,13 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        if (transform.position.x < target.x)
+        if (transform.position.x < target.x && !reachedTarget)
         {
             _spriteRenderer.flipX = true;
         }
         else
         {
-            if(Math.Abs(transform.position.x - target.x) > 0.05f)
+            if(Math.Abs(transform.position.x - target.x) > 0.05f && !reachedTarget)
                 _spriteRenderer.flipX = false;
         }
 
@@ -70,6 +70,11 @@ public class PlayerController : MonoBehaviour
             _goingClickableObject.Action();
             _goingClickableObject = null;
         }
+    }
+
+    public void Flip(bool flipX)
+    {
+        _spriteRenderer.flipX = flipX;
     }
 
     public void GoTo(Vector2 pos)

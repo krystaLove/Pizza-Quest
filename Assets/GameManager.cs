@@ -61,8 +61,11 @@ public class GameManager : MonoBehaviour
     public IEnumerator ChangeLevel(GameObject from, LevelSettings nextLevel)
     {
         
-        Music.Instance.Stop();
-        DialogueVoiceOver.Instance.Stop();
+        //Music.Instance.Stop();
+       // DialogueVoiceOver.Instance.Stop();
+        
+        AudioManager.StopMusic();
+        AudioManager.instance.InstanceStopDialogueVoiceover();
         BlockMove();
         
         if (levelFadeAnimator.enabled)
@@ -77,9 +80,10 @@ public class GameManager : MonoBehaviour
 
         if (nextLevel.musicTheme != null)
         {
-            Music.Instance.Stop();
+           /* Music.Instance.Stop();
             Music.Instance.SetAudioClip(nextLevel.musicTheme);
-            Music.Instance.Play();
+            Music.Instance.Play();*/
+           AudioManager.PlayMusic(nextLevel.musicTheme);
         }
 
         from.SetActive(false);
@@ -96,8 +100,22 @@ public class GameManager : MonoBehaviour
         followCursorItem.SetActive(true);
         followCursorItem.GetComponent<SpriteRenderer>().sprite =
             ItemAssets.Instance.GetSpriteByItemType(inventory.GetItemList()[index].itemType);
+        
+        var lastItem = chosenItem;
         chosenItem = inventory.GetItemList()[index].itemType;
+        if (lastItem == GameItem.ItemType.Coin && chosenItem == GameItem.ItemType.Magnet ||
+            chosenItem == GameItem.ItemType.Coin && lastItem == GameItem.ItemType.Magnet)
+        {
+            inventory.RemoveItemByType(GameItem.ItemType.Magnet);
+            inventory.RemoveItemByType(GameItem.ItemType.Coin);
+            inventory.AddItem(GameItem.ItemType.MagnetAndCoin);
+            chosenItem = GameItem.ItemType.None;
+            chosenItemIndex = -1;
+            DisableSelectedItemFollowingCursor();
+            return;
+        }
         chosenItemIndex = index;
+        
         Debug.Log("New selected Item: " + chosenItem);
     }
     public void SetSelectedItem(GameItem.ItemType type)
@@ -119,6 +137,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void DisableSelectedItemFollowingCursor()
+    {
+        followCursorItem.SetActive(false);
+    }
     public void HideScreen()
     {
         levelFadeAnimator.SetBool("Start", true);
@@ -129,5 +151,8 @@ public class GameManager : MonoBehaviour
         levelFadeAnimator.SetBool("Start", false);
     }
 
-
+    public void GetItem(GameItem.ItemType type)
+    {
+        inventory.AddItem(type);
+    }
 }

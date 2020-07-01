@@ -73,7 +73,13 @@ public class UI_Inventory : MonoBehaviour
 
     void _refreshInventoryItems()
     {
+        foreach (var slot in UiItemSlots)
+        {
+            slot.SetActive(false);
+        }
+        
         int index = 0;
+       
         foreach (GameItem item in _inventory.GetItemList())
         {
             UiItemSlots[index].SetActive(true);
@@ -84,6 +90,7 @@ public class UI_Inventory : MonoBehaviour
 
     private IEnumerator _popUpandDownInventory()
     {
+       
         uiInventoryAnimator.SetBool("Start", true);
         yield return new WaitForSeconds(uiInventoryAnimator.GetCurrentAnimatorStateInfo(0).length + 0.5f);
         uiInventoryAnimator.SetBool("Start", false);

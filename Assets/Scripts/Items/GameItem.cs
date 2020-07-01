@@ -19,7 +19,8 @@ public class GameItem : MonoBehaviour
         Pie,
         Gas,
         Salami,
-        Pizza
+        Pizza,
+        MagnetAndCoin
     }
 
     public ItemType itemType;

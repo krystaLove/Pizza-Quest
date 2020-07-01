@@ -7,6 +7,7 @@ public class DialogCamera : MonoBehaviour
 {
     private CameraFollow _cameraFollow;
     private float beforeDialogCameraSize = 5f;
+    private Vector3 beforeDialogCameraPos;
     
     void Start()
     {
@@ -20,6 +21,10 @@ public class DialogCamera : MonoBehaviour
     void StartDialogCamera(Transform target, float camSize)
     {
         beforeDialogCameraSize = Camera.main.orthographicSize;
+        beforeDialogCameraPos.x = Camera.main.transform.position.x;
+        beforeDialogCameraPos.y = Camera.main.transform.position.y;
+        beforeDialogCameraPos.z = Camera.main.transform.position.z;
+        
         if (target == null) return;
         StartCoroutine(_changeCameraSize(camSize, 0.1f));
         //Camera.main.orthographicSize = camSize;
@@ -33,6 +38,7 @@ public class DialogCamera : MonoBehaviour
         _cameraFollow.isSmooth = false;
         _cameraFollow.FollowPlayer();
         Camera.main.orthographicSize = beforeDialogCameraSize;
+        Camera.main.transform.position = beforeDialogCameraPos;
     }
 
     IEnumerator _changeCameraSize(float camSize, float speed)

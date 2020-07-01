@@ -23,7 +23,7 @@ public class GetItemDialog
 {
     public GameItem.ItemType neededItem;
     public Dialogue dialogue;
-    public GameItem.ItemType givingItem;
+    public List<GameItem.ItemType> givingItem;
 
 
 }

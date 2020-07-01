@@ -22,24 +22,27 @@ public class Reaction
     {
         if (isVoicing)
         {
+            AudioClip audioclip;
             if (loop)
             {
-                DialogueVoiceOver.Instance.SetAudioClip(voiceReactions[loopProgress]);
+
+                audioclip = voiceReactions[loopProgress];
                 loopProgress = (loopProgress + 1) % voiceReactions.Count;
             }
             else
             {
-                DialogueVoiceOver.Instance.SetAudioClip(voiceReactions[0]);
+                audioclip = voiceReactions[0];
             }
+            AudioManager.PlayReactionVoiceover(audioclip);
         }
-        DialogueVoiceOver.Instance.Play();
+        
         OnReactionEvent?.Invoke();
-
+        
+        if(neededItemType != GameItem.ItemType.None)
+            GameManager.Instance.inventory.RemoveItemByType(neededItemType);
+        
         if (giveItem != GameItem.ItemType.None)
         {
-            if(neededItemType != GameItem.ItemType.None)
-                GameManager.Instance.inventory.RemoveItemByType(neededItemType);
-            
             GameManager.Instance.inventory.AddItem(giveItem);
         }
             

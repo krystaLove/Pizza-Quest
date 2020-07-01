@@ -17,6 +17,7 @@ public class UnlockInteractableProgress : MonoBehaviour
 
    [Header("00_plantation")] 
    public bool isStickGot = false;
+   public bool isTalkedWithKolhoznik = false;
 
    [Header("02_outership")] 
    public bool isVisitedByHomeless = false;
@@ -45,6 +46,11 @@ public class UnlockInteractableProgress : MonoBehaviour
       isTalkedWithHomeless = true;
    }
 
+   public void SetTalkedWithKolhoznik()
+   {
+      isTalkedWithKolhoznik = true;
+   }
+
    public void SetSlivSolari()
    {
       isVisitedByHomeless = true;
@@ -55,5 +61,21 @@ public class UnlockInteractableProgress : MonoBehaviour
    public void VozvrashenieSolari()
    {
       shipAfterVisiting.SetActive(false);
+   }
+
+   public void GetCasinoCoin()
+   {
+      GameManager.Instance.inventory.AddItem(GameItem.ItemType.CasinoCoin);
+   }
+   public void GetCheese()
+   {
+      cheese = true;
+      GameManager.Instance.inventory.AddItem(GameItem.ItemType.Cheese);
+   }
+
+   public void GetStick()
+   {
+      isStickGot = true;
+      GameManager.Instance.inventory.AddItem(GameItem.ItemType.Stick);
    }
 }
